@@ -32,35 +32,28 @@ In this project, I document the steps and troubleshooting steps involved in host
 
 ## EMAIL FLOW 
 
-+----------------------+                     +----------------------+                     +-------------------+
-|                      |                     |                      |                     |                   |
-|      Internet        +-------------------->+    Sophos Email      +-------------------->+    Microsoft 365  |
-|                      |                     |  (Inbound Scanning)  |                     |  (Inbound Email)  |
-+----------------------+                     +----------------------+                     +-------------------+
-                                                                                                 |
-                                                                                                 |
-                                                                                                 v
-                                                                                   Emails delivered to M365 mailboxes
-                                                                                 
 Inbound Email Flow:
+
+|      Internet        +-------------------->+    Sophos Email      +-------------------->+    Microsoft 365  | ----->  Emails delivered to M365 mailboxes
+|                      |                     |  (Inbound Scanning)  |                     |  (Inbound Email)  |
+                                                                                                                                                                                 
+
 1. Email is sent from the internet to the domain's MX records, which point to Sophos Email.
 2. Sophos Email scans inbound emails for spam, phishing, and malware.
 3. After scanning, Sophos Email routes the email to Microsoft 365.
 4. Microsoft 365 accepts the email using inbound connectors.
+   
 
 ======================================================================================================
 
-+----------------------+                     +----------------------+                     +-------------------+
-|                      |                     |                      |                     |                   |
-|    Microsoft 365     +-------------------->+    Sophos Email      +-------------------->+    Recipient       |
-|  (Outbound Email)    |                     |  (Outbound Scanning) |                     |      Domain        |
-+----------------------+                     +----------------------+                     +-------------------+
-                                                                                                 |
-                                                                                                 |
-                                                                                                 v
-                                                                                   Emails delivered to recipient
-
 Outbound Email Flow:
+
+|                      |                     |                      |                     |                   |
+|    Microsoft 365     +-------------------->+    Sophos Email      +-------------------->+    Recipient       |----->     Emails delivered to recipient
+|  (Outbound Email)    |                     |  (Outbound Scanning) |                     |      Domain        |
+
+                                                                                                                                                                   
+
 1. Outbound email originates from Microsoft 365.
 2. Microsoft 365 routes the outbound email to Sophos Email using an outbound connector.
 3. Sophos Email scans the outbound email for threats.
